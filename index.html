@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>Aufgabe</title>
+  </head>
+  <body>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Leistung</th>
+            <th scope="col">Object</th>
+            <th scope="col">Preis netto</th>
+            <th scope="col">MwsT</th>
+            <th scope="col">Preis brutto</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr class="element" id="0">
+            <td scope="row">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Leistung"
+                />
+              </div>
+            </td>
+            <td>
+              <div class="input-group mb-3">
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Object</option>
+                </select>
+              </div>
+            </td>
+            <td class="td1">
+              <div class="input-group">
+                <input
+                  id="preisNettoInput0"
+                  oninput="handleChangePreisNetto(event)"
+                  onblur="handleOnBlurPreisNetto(event)"
+                  type="text"
+                  class="form-control input"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+            </td>
+            <td class="td1">
+              <div class="input-group mb-3">
+                <select
+                  class="custom-select"
+                  id="inputGroupSelect0"
+                  onchange="handleSteuer(event)"
+                >
+                  <option value="1">0%</option>
+                  <option value="2">7%</option>
+                  <option value="3">19%</option>
+                </select>
+              </div>
+            </td>
+            <td class="td1">
+              <div class="input-group">
+                <input
+                  id="preisBruttoInput0"
+                  type="text"
+                  oninput="handleChangePreisBrutto(event)"
+                  onblur="handleOnBlurPreisBrutto(event)"
+                  class="form-control"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <svg
+                onclick="handleDeleteElement(event)"
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-trash"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                />
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center plusContainer">
+        <svg
+          onclick="handleAddNewElement()"
+          width="1em"
+          height="1em"
+          viewBox="0 0 16 16"
+          class="bi bi-plus-circle"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+          />
+        </svg>
+      </div>
+      <table class="table">
+        <tbody id="tableBody2">
+          <tr>
+            <td scope="row">
+              <b>Gesamtpreis</b>
+            </td>
+            <td class="td1">
+              <div class="input-group">
+                <input
+                  readonly
+                  id="sumNettoPreis"
+                  type="text"
+                  class="form-control"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+            </td>
+            <td class="td1">
+              <div class="input-group">
+                <input
+                  id="sumMwsTPreis"
+                  readonly
+                  type="text"
+                  class="form-control"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+            </td>
+            <td class="td1">
+              <div class="input-group">
+                <input
+                  id="sumBruttoPreis"
+                  readonly
+                  type="text"
+                  class="form-control"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+            </td>
+            <td class="break"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
